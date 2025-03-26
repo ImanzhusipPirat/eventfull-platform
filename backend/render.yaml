@@ -7,7 +7,11 @@ services:
     envVars:
       - key: MONGODB_URL
         sync: false
-      - key: JWT_SECRET
+      - key: SECRET_KEY
         sync: false
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "30"
       - key: CORS_ORIGINS
         value: https://eventfull.vercel.app 

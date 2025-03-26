@@ -25,16 +25,17 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 app = FastAPI(title="EventFull API")
 
 # MongoDB connection
-MONGODB_URL = "mongodb://localhost:27017"
-DATABASE_NAME = "event-platform"  # Меняем с eventfull на event-platform
+MONGODB_URL = os.getenv("MONGODB_URL", "mongodb://localhost:27017")
+DATABASE_NAME = "event-platform"
 
 client = AsyncIOMotorClient(MONGODB_URL)
 db = client[DATABASE_NAME]
 
 # CORS middleware configuration
+CORS_ORIGINS = os.getenv("CORS_ORIGINS", "http://localhost:8080").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8080"],  # Vue.js default port
+    allow_origins=CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
