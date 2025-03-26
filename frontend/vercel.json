@@ -7,5 +7,14 @@
   ],
   "env": {
     "VITE_API_URL": "https://eventfull-backend.onrender.com"
-  }
+  },
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ]
 } 
