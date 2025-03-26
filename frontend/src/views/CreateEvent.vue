@@ -156,7 +156,7 @@ export default {
       error.value = ''
 
       try {
-        const response = await axios.post('http://localhost:8000/events/', {
+        const response = await axios.post('/events/', {
           ...form.value,
           date: new Date(form.value.date).toISOString()
         })

@@ -94,7 +94,7 @@ export default {
       try {
         loading.value = true
         error.value = null
-        const response = await axios.get('http://localhost:8000/events/')
+        const response = await axios.get('/events/')
         events.value = response.data
       } catch (err) {
         error.value = 'Ошибка при загрузке событий'
