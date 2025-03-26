@@ -8,6 +8,6 @@
   "env": {
     "VITE_API_URL": "https://eventfull-backend.onrender.com"
   },
-  "buildCommand": "npm install && node vercel-build.js",
+  "buildCommand": "node build-fix.js",
   "outputDirectory": "dist"
 } 
