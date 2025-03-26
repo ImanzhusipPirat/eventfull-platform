@@ -1,7 +1,8 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+const API_URL = import.meta.env.VITE_API_URL || 'https://eventfull-platform.onrender.com'
+console.log('API URL:', API_URL)
 
 export default createStore({
   state: {
@@ -49,8 +50,13 @@ export default createStore({
     },
     async register({ commit }, userData) {
       try {
+        console.log('Register request with data:', userData)
+        console.log('API URL:', API_URL)
+        
         // Регистрируем пользователя
-        await axios.post(`${API_URL}/users/register`, userData)
+        const registerResponse = await axios.post(`${API_URL}/users/register`, userData)
+        console.log('Register response:', registerResponse.data)
+        
         // После успешной регистрации входим в систему
         const loginResponse = await axios.post(`${API_URL}/auth/login`, {
           username: userData.email,
@@ -58,12 +64,14 @@ export default createStore({
         })
         const { access_token } = loginResponse.data
         commit('setToken', access_token)
+        
         // Получаем данные пользователя
         const userResponse = await axios.get(`${API_URL}/users/me`)
         commit('setUser', userResponse.data)
         return true
       } catch (error) {
-        console.error('Registration error:', error)
+        console.error('Registration error details:', error)
+        console.error('Error response:', error.response?.data)
         throw error
       }
     },
