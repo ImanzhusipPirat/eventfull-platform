@@ -41,6 +41,11 @@ const routes = [
     name: 'Profile',
     component: Profile,
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/create-event',
+    name: 'CreateEvent',
+    component: CreateEvent
   }
 ]
 

@@ -37,6 +37,18 @@ export default createStore({
     }
   },
   actions: {
+    async fetchEvents({ commit }) {
+      console.log('[Store] Fetching events...');
+      try {
+        const response = await axios.get('/events');
+        commit('setEvents', response.data);
+        return response.data;
+      } catch (error) {
+        console.error('[Store] Error fetching events:', error.response?.data || error.message);
+        commit('setEvents', []);
+        throw error;
+      }
+    },
     async register({ commit }, userData) {
       console.log('[Store] Starting registration...');
       try {
@@ -75,5 +87,10 @@ export default createStore({
       commit('setUser', null);
       commit('setToken', null);
     }
+  },
+  getters: {
+    isAuthenticated: state => !!state.token,
+    currentUser: state => state.user,
+    allEvents: state => state.events
   }
 }) 
